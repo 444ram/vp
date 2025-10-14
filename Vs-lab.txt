@@ -1,0 +1,316 @@
+1.1.	Write a  C# program to check if a number is prime.
+
+using System;
+
+class PrimeChech
+{
+    public static void Main(String[] args)
+    {
+        int n=Convert.ToInt32(Console.ReadLine());
+
+        bool p = true;
+
+        if (n <= 1)
+        {
+            p = false;
+        }
+        else
+        {
+            for(int i = 2; i <= Math.Sqrt(n); i++)
+            {
+                if(n%i==0)
+                {
+                    p = false;
+                    break;
+                }
+            }
+        }
+        if (p)
+        {
+            Console.WriteLine("prime");
+        }
+        else
+        {
+            Console.WriteLine("not prime");
+        }
+    }
+}
+
+
+2.	Write a C# program to print the Fibonacci series up to n terms.
+
+using System;
+using System.Runtime.InteropServices.Marshalling;
+
+class Fibonicci
+{
+    public static void Main(String[] args)
+    {
+        int n=Convert.ToInt32(Console.ReadLine());
+        int f = 0;
+        int s = 1;
+        int nt;
+        for( int i = 1; i <= n; i++)
+        {   
+            Console.Write(f+" ");
+            nt = f + s;
+            f = s;
+            s = nt;
+        }
+        Console.WriteLine();
+    }
+}
+
+3.	Write a  C# program to check whether a string is a palindrome.
+
+using System;
+using System.Text;
+
+class palin
+{
+    public static void Main(string[] args)
+    {
+        string s = Console.ReadLine();
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = s.Length - 1; i >= 0; i--)
+        {
+            sb.Append(s[i]);
+        }
+
+        string rev= sb.ToString();
+
+        Console.WriteLine(rev);
+
+        if(s.Equals(rev,StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("Palin");
+        }
+        else
+        {
+            Console.WriteLine("Not Palin");
+        }
+
+    }
+}
+
+
+4.	Write a C# program to reverse a number.
+
+using System;
+
+class Rever
+{
+    public static void Main(string[] args)
+    {
+        int n=Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine(n);
+        int r = 0;
+        while (n != 0)
+        {
+            int t = n % 10;
+            r= r *10 + t;
+            n = n / 10;
+
+        }
+        Console.WriteLine(r);
+    }
+}
+
+5.	Write a C# program to find the sum of digits of a number.
+
+using System;
+
+class SumDigit
+{
+    public static void Main(string[] args)
+    {
+        int n=Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine(n);
+        int r = 0;
+        while (n != 0)
+        {
+            int t = n % 10;
+            r += t;
+            n=n/10;
+
+        }
+        Console.WriteLine(r);
+    }
+}
+
+6.	Write a C# program to count the number of vowels in a string
+
+using System;
+
+class SumDigit
+{
+    public static void Main(string[] args)
+    {
+      string s=Console.ReadLine().ToLower();
+        int cnt = 0;
+        foreach (char c in s)
+        {
+            if(c == 'a' || c == 'e' || c == 'i' || c=='o'  || c== 'u')
+            {
+                cnt++;
+            }
+        }
+        Console.WriteLine(cnt);
+    }
+}
+
+7.	Demonstrate some basic string manipulation using methods of both StringBuilder and String classes.
+
+
+using System;
+using System.Text;
+
+class StringManipulationDemo
+{
+    public static void Main(string[] args)
+    {
+        // --- Using String Class ---
+        Console.WriteLine("=== String Class Example ===");
+        string str = "Hello World";
+
+        Console.WriteLine("Original String: " + str);
+        Console.WriteLine("Length: " + str.Length);
+        Console.WriteLine("To Upper: " + str.ToUpper());
+        Console.WriteLine("To Lower: " + str.ToLower());
+        Console.WriteLine("Substring (0,5): " + str.Substring(0, 5));
+        Console.WriteLine("Replace 'World' with 'C#': " + str.Replace("World", "C#"));
+        Console.WriteLine("Contains 'Hello'? " + str.Contains("Hello"));
+        Console.WriteLine();
+
+        // --- Using StringBuilder Class ---
+        Console.WriteLine("=== StringBuilder Class Example ===");
+        StringBuilder sb = new StringBuilder("Hello");
+
+        Console.WriteLine("Original: " + sb);
+
+        sb.Append(" World");             // Add text at the end
+        Console.WriteLine("After Append: " + sb);
+
+        sb.Insert(5, " C#");             // Insert text at a specific index
+        Console.WriteLine("After Insert: " + sb);
+
+        sb.Replace("World", "Everyone"); // Replace text
+        Console.WriteLine("After Replace: " + sb);
+
+        sb.Remove(0, 6);                 // Remove characters
+        Console.WriteLine("After Remove: " + sb);
+
+        sb.Clear();                      // Clear all text
+        Console.WriteLine("After Clear: " + sb.ToString());
+    }
+}
+
+8.	Write a C# program to split a substring from a given string.
+
+using System;
+
+class SubString
+{
+    public static void Main(string[] args)
+    {
+        string s = Console.ReadLine();
+        for(int i = 0; i < s.Length; i++)
+            for(int j = i; j < s.Length; j++)
+            {
+                {
+                    Console.WriteLine(s.Substring(i, j-i+1));
+                }
+            }
+       
+    }
+}
+
+9.	C# program to count the odd numbers in the given number
+
+using System;
+
+class CountOddDigits
+{
+    public static void Main(string[] args)
+    {
+        Console.Write("Enter a number: ");
+        int num = Convert.ToInt32(Console.ReadLine());
+        int count = 0;
+        int temp = num;
+
+        while (temp != 0)
+        {
+            int digit = temp % 10;   // get last digit
+            if (digit % 2 != 0)      // check if odd
+            {
+                count++;
+            }
+            temp = temp / 10;         // remove last digit
+        }
+
+        Console.WriteLine("Number of odd digits in " + num + " is: " + count);
+    }
+}
+
+
+10.	C# Write a C# program to find the maximum occurring character in a given string
+
+using System;
+
+class MaxFreq
+{
+    public static void Main(string[] args)
+    {
+        string s = Console.ReadLine().ToLower();
+        int[] freq = new int[256];
+        foreach(char  c in s)
+        {
+            freq[c]++;
+        }
+        int m = 0;
+        char res = ' ';
+
+        for(int i = 0; i < 256; i++)
+        {
+            if( freq[i] > m)
+            {
+                res = (char)i;
+                m= freq[i];
+            }
+        }
+        Console.WriteLine(res);
+        Console.WriteLine(m);
+    }
+}
+
+11.	Write a program to C# to find the smallest digit for a given value.
+
+using System;
+
+class SmallestDigit
+{
+    public static void Main(string[] args)
+    {
+        Console.Write("Enter a number: ");
+        int num = Convert.ToInt32(Console.ReadLine());
+
+        int smallest = 9; // Maximum possible digit
+        int temp = Math.Abs(num); // Handle negative numbers
+
+        while (temp > 0)
+        {
+            int digit = temp % 10;
+            if (digit < smallest)
+                smallest = digit;
+
+            temp = temp / 10;
+        }
+
+        Console.WriteLine("Smallest digit in " + num + " is: " + smallest);
+    }
+}
+
+
+
+
