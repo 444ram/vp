@@ -1,0 +1,10 @@
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\bin\Debug\HttpDownloader.exe.config
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\bin\Debug\HttpDownloader.exe
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\bin\Debug\HttpDownloader.pdb
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\obj\Debug\HttpDownloader.csproj.AssemblyReference.cache
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\obj\Debug\HttpDownloader.Form1.resources
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\obj\Debug\HttpDownloader.Properties.Resources.resources
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\obj\Debug\HttpDownloader.csproj.GenerateResource.cache
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\obj\Debug\HttpDownloader.csproj.CoreCompileInputs.cache
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\obj\Debug\HttpDownloader.exe
+C:\Users\DELL\source\repos\HttpDownloader\HttpDownloader\obj\Debug\HttpDownloader.pdb
