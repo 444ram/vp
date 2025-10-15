@@ -1,0 +1,47 @@
+
+
+Demonstrate a Console Application program to validate Email-ID and username with 3 to 16 characters length andalso can have all special characters using Regular Expressions.
+
+
+using System;
+using System.Text.RegularExpressions;
+
+class RegularexprDemo
+{
+    public static void Main(string[] args)
+    {
+        // Regex pattern for validating an email address
+
+        string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+        // Regex pattern for validating a username with 3 to 16 characters, allowing special characters
+        string usernamePattern = @"^.{3,16}$";
+
+        Console.Write("Enter your Email ID: ");
+        string email = Console.ReadLine();
+
+        // Validate the email address
+        if (Regex.IsMatch(email, emailPattern))
+        {
+            Console.WriteLine("Valid Email ID.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid Email ID.");
+        }
+
+        // Get username input from the user
+        Console.Write("Enter your Username: ");
+        string username = Console.ReadLine();
+
+        // Validate the username
+        if (Regex.IsMatch(username, usernamePattern))
+        {
+            Console.WriteLine("Valid Username.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid Username. Username must be 3 to 16 characters long and can include special characters.");
+        }
+    }
+}

@@ -1,0 +1,44 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="SMS1.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>  </title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header><h1>CVR COLlEGE OF ENGINNERING</h1></header>
+        <link rel="stylesheet" href="styles.css" />
+
+        <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal">
+            <Items>
+                <asp:MenuItem NavigateUrl="~/HOME.aspx" Text="HOME" Value="HOME"></asp:MenuItem>
+                <asp:MenuItem NavigateUrl="~/ADDSTUDENT.aspx" Text="ADD" Value="ADD"></asp:MenuItem>
+            </Items>
+            <StaticMenuItemStyle Font-Bold="True" Font-Size="15pt" HorizontalPadding="10px" ItemSpacing="5px" VerticalPadding="5px" />
+        </asp:Menu>    
+           
+      
+    <asp:Image ID="Image1" runat="server" ImageUrl="~/IMAGE/COLLEGE.jpg" ImageAlign="AbsMiddle" Width="50%" />
+        <p>
+            &nbsp;</p>
+        <div>
+            <div class="content-area">
+            
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"/>
+     
+   
+ <div id="footer" style="background-color: #eee; text-align: center; padding: 15px; font-size: 12px;">
+            © 2025 Student Management System. All rights reserved.
+        </div>
+
+    </form>
+    <p>
+    </p>
+    <p>
+        &nbsp;</p>
+</body>
+</html>

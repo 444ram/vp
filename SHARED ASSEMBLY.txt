@@ -1,0 +1,49 @@
+2.Demonstrate how to Create a Public assembly and store it in GAC (GLOBAL ACCESS CACHE )and use it in all applications.
+
+
+Step 1: Create a Public Assembly (Strongly-Named Assembly)
+1.Open the MyMathLibrary project.
+2.Right-click on the project in Solution Explorer and choose Properties.
+3.Go to the Signing tab and check the box for Sign the assembly.
+4.Click on Choose a strong name key file and select New.
+5.Name the key file (e.g., MyMathKey.snk) and click OK.
+6.Rebuild the project to generate the strongly-named assembly (MyMathLibrary.dll).
+
+
+Step 2: Install the Public Assembly into the Global Assembly Cache (GAC)
+1.Open the Developer Command Prompt (for Visual Studio).
+2.Navigate to the directory where MyMathLibrary.dll is located.
+3.Use the following command to install the assembly into the GAC:
+ cmd > gacutil -i MyMathLibrary.dll
+1.This will add the assembly to the GAC, making it available to all applications on the system.
+Step 3: Create a New Console Application to Use the Public Assembly
+1.Create another Console Application project named GlobalMathApp.
+2.Right-click on References and choose Add Reference.
+3.In the Assemblies tab, find and select MyMathLibrary from the list of GAC assemblies.
+4.Write the following code in the Program.cs file:
+
+using System;
+using MyMathLibrary;
+
+namespace GlobalMathApp
+{
+    class Program
+    {
+       public  static void Main(string[] args)
+        {
+MathOperationsmathOps = new MathOperations();
+
+            int sum = mathOps.Add(50, 70);
+            int difference = mathOps.Subtract(90, 45);
+            int product = mathOps.Multiply(10, 20);
+            double quotient = mathOps.Divide(100, 5);
+
+Console.WriteLine("Sum: " + sum);
+Console.WriteLine("Difference: " + difference);
+Console.WriteLine("Product: " + product);
+Console.WriteLine("Quotient: " + quotient);
+
+Console.ReadLine(); // Wait for user input before closing the console
+        }
+    }
+}

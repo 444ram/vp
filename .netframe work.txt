@@ -1,0 +1,732 @@
+13.	Demonstrate how to create windows form that can use HTTP to download and save a resource from a specified URL.
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace HttpDownloader
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string url = textBox1.Text.Trim(); 
+            if (string.IsNullOrEmpty(url))
+            {
+                MessageBox.Show("Please enter a valid URL.");
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = "downloadedFile";
+            saveFileDialog.Filter = "All files (*.*)|*.*";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string localPath = saveFileDialog.FileName;
+
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        // Optional: Show progress in Status TextBox
+                        client.DownloadProgressChanged += (s, ev) =>
+                        {
+                            textBox2.Text = $"Downloading... {ev.ProgressPercentage}%";
+                        };
+
+                        client.DownloadFileCompleted += (s, ev) =>
+                        {
+                            textBox2.Text = "Download completed!";
+                        };
+
+                        client.DownloadFileAsync(new Uri(url), localPath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+
+14.	Design an ASP.NET Web form to create the registration page by using necessary controls.
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="WebAppDemo.Registration" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 50px auto;
+            box-shadow: 0px 0px 10px gray;
+        }
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-container table {
+            width: 100%;
+        }
+        .form-container td {
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="form-container">
+            <h2>Registration Form</h2>
+            <table>
+                <tr>
+                    <td><asp:Label ID="lblName" runat="server" Text="Full Name:" /></td>
+                    <td><asp:TextBox ID="txtName" runat="server" Width="200px" /></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="lblEmail" runat="server" Text="Email:" /></td>
+                    <td><asp:TextBox ID="txtEmail" runat="server" TextMode="Email" Width="200px" /></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="lblPassword" runat="server" Text="Password:" /></td>
+                    <td><asp:TextBox ID="txtPassword" runat="server" TextMode="Password" Width="200px" /></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="lblGender" runat="server" Text="Gender:" /></td>
+                    <td>
+                        <asp:RadioButtonList ID="rblGender" runat="server" RepeatDirection="Horizontal">
+                            <asp:ListItem>Male</asp:ListItem>
+                            <asp:ListItem>Female</asp:ListItem>
+                        </asp:RadioButtonList>
+                    </td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="lblCountry" runat="server" Text="Country:" /></td>
+                    <td>
+                        <asp:DropDownList ID="ddlCountry" runat="server" Width="200px">
+                            <asp:ListItem>Select Country</asp:ListItem>
+                            <asp:ListItem>India</asp:ListItem>
+                            <asp:ListItem>USA</asp:ListItem>
+                            <asp:ListItem>UK</asp:ListItem>
+                            <asp:ListItem>Australia</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <asp:CheckBox ID="chkTerms" runat="server" Text="I agree to the Terms and Conditions" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <asp:Button ID="btnRegister" runat="server" Text="Register" BackColor="#4CAF50" ForeColor="White" OnClick="btnRegister_Click" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <asp:Label ID="lblMessage" runat="server" ForeColor="Green" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
+
+
+using System;
+using System.Web.UI;
+
+namespace WebAppDemo
+{
+    public partial class Registration : Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnRegister_Click(object sender, EventArgs e)
+        {
+            if (chkTerms.Checked == false)
+            {
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                lblMessage.Text = "You must accept the Terms and Conditions.";
+                return;
+            }
+
+            string name = txtName.Text;
+            string email = txtEmail.Text;
+            string password = txtPassword.Text;
+            string gender = rblGender.SelectedItem?.Text;
+            string country = ddlCountry.SelectedItem.Text;
+
+            lblMessage.ForeColor = System.Drawing.Color.Green;
+            lblMessage.Text = $"Registration successful!<br/>Welcome, {name} ({gender}) from {country}.";
+        }
+    }
+}
+
+
+15.	Develop the c# console application to create the private assembly and use it in different application.
+
+Task 5:Working with Assemblies 
+
+1.Demonstrate a console application by creating a Private Assembly and use it in different applications.
+
+
+2.Demonstrate how to Create a Public assembly and store it in GAC and use it in all applications.
+
+
+1.Demonstrate a console application by creating a Private Assembly and use it in different applications.
+
+Step 1: Create a Private Assembly (Class Library)
+1.Open Visual Studio and create a new Class Library project.
+2.Name it MyMathLibrary.
+3.Replace the default Class1.cs with the following code and build the solution
+
+
+namespace MyMathLibrary
+{
+    public class MathOperations
+    {
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+
+        public int Subtract(int a, int b)
+        {
+            return a - b;
+        }
+
+        public int Multiply(int a, int b)
+        {
+            return a * b;
+        }
+
+        public double Divide(int a, int b)
+        {
+            return (double)a / b;
+        }
+    }
+}
+
+
+Step 2: 
+Create a Console Application to Use the Private Assembly
+1.Create a new Console Application project named MathApp.
+2.go to solution explorer and Right-click on References in the MathApp project and select Add Reference.
+3.Browse to the location of MyMathLibrary.dll and add it as a reference.
+4.In the Program.cs file, write the following code:
+
+using System;
+using MyMathLibrary; // Reference the private assembly
+
+namespace MathApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+MathOperations mathOps = new MathOperations();
+
+            int sum = mathOps.Add(10, 20);
+            int difference = mathOps.Subtract(30, 15);
+            int product = mathOps.Multiply(5, 6);
+            double quotient = mathOps.Divide(40, 8);
+
+Console.WriteLine("Sum: " + sum);
+Console.WriteLine("Difference: " + difference);
+Console.WriteLine("Product: " + product);
+Console.WriteLine("Quotient: " + quotient);
+
+Console.ReadLine(); // Wait for user input before closing the console
+        }
+    }
+}
+
+
+16.Implement a C# console application that checks whether the entered email is in proper format or not using regular expressions.
+
+ using System;
+using System.Text.RegularExpressions;
+
+namespace EmailValidationApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("=== Email Validation Program ===\n");
+            Console.Write("Enter your email address: ");
+            string email = Console.ReadLine();
+
+            // Regular Expression pattern for a valid email
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            // Create a Regex object
+            Regex regex = new Regex(pattern);
+
+            // Check if the input matches the pattern
+            if (regex.IsMatch(email))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\n✅ The email address is in a valid format.");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n❌ Invalid email format! Please try again.");
+            }
+
+            Console.ResetColor();
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
+    }
+}
+
+
+17.17.	Demonstrate the interface inheritance using explicit interface Implementation.
+
+using System;
+
+namespace InterfaceInheritanceDemo
+{
+    // Base interface
+    interface IShape
+    {
+        void Draw();
+    }
+
+    // Derived interface inherits from IShape
+    interface IDraw : IShape
+    {
+        void Display();
+    }
+
+    // Class implementing the derived interface using explicit implementation
+    class Circle : IDraw
+    {
+        // Explicit implementation for IShape.Draw
+        void IShape.Draw()
+        {
+            Console.WriteLine("Drawing shape using IShape interface.");
+        }
+
+        // Explicit implementation for IDraw.Display
+        void IDraw.Display()
+        {
+            Console.WriteLine("Displaying circle using IDraw interface.");
+        }
+
+        // Public method in class
+        public void CircleInfo()
+        {
+            Console.WriteLine("This is a Circle class method.");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Circle c = new Circle();
+
+            // Accessing class method
+            c.CircleInfo();
+
+            // Accessing interface methods through interface references
+            IShape shape = c;
+            shape.Draw();   // Calls IShape.Draw()
+
+            IDraw draw = c;
+            draw.Display(); // Calls IDraw.Display()
+
+            Console.WriteLine("\n✅ Interface inheritance and explicit implementation demonstrated successfully!");
+        }
+    }
+}
+
+18.	write a c# console application  to demonstrate  the  delegates concept
+
+A delegate in C# is similar to a function pointer in C or C++.
+
+ delegate holds the address of a method which can be called using that delegate.
+They are derived from System.Delegate class.
+
+C# programmers often need to pass a method as a parameter of other methods when dealing with events. 
+
+Singlecast delegate: Singlecast delegate points to a single method at a time. The delegate is assigned to a single method at a time. 
+Multicast Delegate: When a delegate is wrapped with more than one method, that is known as a multicast delegate.
+
+
+Eg:
+
+
+
+
+using System;
+
+namespace DelegateAdditionExample
+{
+    // 1. Declare a delegate that takes two integers and returns an integer
+    public delegate int MathOperation(int a, int b);
+
+    class Program
+    {
+        // 2. Define a method that matches the delegate signature
+        static int Add(int x, int y)
+        {
+            return x + y;
+        }
+
+        public static void Main(string[] args)
+        {
+    // 3. Create an instance of the delegate and point it to the Add method
+            
+	MathOperation ope = Add;
+
+            // 4. Call the delegate
+            
+            int result = ope(10, 5);
+ Console.WriteLine("The result of addition is: " + result); 
+        }}}
+
+
+
+
+
+ 21 .Problem Definition:
+Create a base class Employee with the following data members:
+name
+employeeID
+salary
+Derive two classes from Employee:
+FullTimeEmployee
+PartTimeEmployee
+
+Each derived class should implement a method CalculateSalary() as follows:
+FullTimeEmployee Salary Formula:
+salary = (basicSalary * numberOfDays) + HRA + DA
+PartTimeEmployee Salary Formula:
+salary = dailyWages * numberOfDays
+Display the employee details along with the calculated salary
+
+
+
+using System;
+
+// Base class
+class Employee
+{
+    public string Name { get; set; }
+    public int EmployeeID { get; set; }
+    public double Salary { get; protected set; } // Calculated salary
+
+    public Employee(string name, int employeeID)
+    {
+        Name = name;
+        EmployeeID = employeeID;
+    }
+
+    // Virtual method for calculating salary
+    public virtual void CalculateSalary()
+    {
+        Salary = 0;
+    }
+
+    public virtual void DisplayDetails()
+    {
+        Console.WriteLine($"Employee Name: {Name}");
+        Console.WriteLine($"Employee ID: {EmployeeID}");
+        Console.WriteLine($"Salary: {Salary:C}"); // C = currency format
+    }
+}
+
+// Derived class: Full-time employee
+class FullTimeEmployee : Employee
+{
+    public double BasicSalary { get; set; }
+    public int NumberOfDays { get; set; }
+    public double HRA { get; set; }
+    public double DA { get; set; }
+
+    public FullTimeEmployee(string name, int employeeID, double basicSalary, int numberOfDays, double hra, double da)
+        : base(name, employeeID)
+    {
+        BasicSalary = basicSalary;
+        NumberOfDays = numberOfDays;
+        HRA = hra;
+        DA = da;
+    }
+
+    public override void CalculateSalary()
+    {
+        Salary = (BasicSalary * NumberOfDays) + HRA + DA;
+    }
+
+    public override void DisplayDetails()
+    {
+        base.DisplayDetails();
+        Console.WriteLine("Employee Type: Full-Time");
+        Console.WriteLine($"Basic Salary: {BasicSalary}");
+        Console.WriteLine($"HRA: {HRA}, DA: {DA}, Days Worked: {NumberOfDays}");
+        Console.WriteLine("------------------------------");
+    }
+}
+
+// Derived class: Part-time employee
+class PartTimeEmployee : Employee
+{
+    public double DailyWages { get; set; }
+    public int NumberOfDays { get; set; }
+
+    public PartTimeEmployee(string name, int employeeID, double dailyWages, int numberOfDays)
+        : base(name, employeeID)
+    {
+        DailyWages = dailyWages;
+        NumberOfDays = numberOfDays;
+    }
+
+    public override void CalculateSalary()
+    {
+        Salary = DailyWages * NumberOfDays;
+    }
+
+    public override void DisplayDetails()
+    {
+        base.DisplayDetails();
+        Console.WriteLine("Employee Type: Part-Time");
+        Console.WriteLine($"Daily Wages: {DailyWages}, Days Worked: {NumberOfDays}");
+        Console.WriteLine("------------------------------");
+    }
+}
+
+// Main Program
+class Program
+{
+    static void Main()
+    {
+        // Full-Time Employee
+        FullTimeEmployee fte = new FullTimeEmployee("Ramesh", 101, 1000, 22, 5000, 2000);
+        fte.CalculateSalary();
+        fte.DisplayDetails();
+
+        // Part-Time Employee
+        PartTimeEmployee pte = new PartTimeEmployee("Sita", 102, 500, 15);
+        pte.CalculateSalary();
+        pte.DisplayDetails();
+
+        Console.ReadLine();
+    }
+}
+
+
+22.. Develop ASP.NET web form to demonstrate how to use the SmtpMail class to send the mail in the .Net Framework
+
+Sending Mail with SmtpMail: Use a simple web form to demonstrate how to use the SmtpMail class in the .Net Framework.
+
+Webform1.Aspx code:
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="TASK11DEMOI.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <br />
+
+   <asp:Label ID="Label 1" runat="server" Text="TO"></asp:Label>
+
+  <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+        </div>
+        <p>
+<asp:Label ID="Label 2" runat="server" Text="SUBJECT"></asp:Label>
+
+ <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+        </p>
+        <p>
+
+ <asp:Label ID="Label3" runat="server" Text="BODY"></asp:Label>
+
+<asp:TextBox ID="TextBox3" runat="server" TextMode="MultiLine"></asp:TextBox>
+        </p>
+        <p>
+ <asp:Label ID="Label4" runat="server" Text="STATUS"></asp:Label>
+        </p>
+        <p style="margin-left: 280px">
+   
+<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="SEND" />
+        </p>
+            </form>
+</body>
+</html>
+
+
+
+
+Webform1.Aspx.cs   code:
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Net.Mail;
+
+
+
+namespace TASK11
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MailMessage   mail = new   MailMessage();
+                mail.To.Add(TextBox1.Text);
+                mail.From = new MailAddress("youremail@domain.com"); // Replace with your email
+                mail.Subject = TextBox2.Text;
+                mail.Body = TextBox3.Text;
+
+                SmtpClient   smtp = new    SmtpClient();
+                smtp.Host = "smtp.gmail.com"; // Replace with your SMTP server
+                smtp.Port = 587; // Replace with SMTP port
+                smtp.Credentials = new System.Net.NetworkCredential("username", "password"); // Replace with your credentials
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                Label4.Text = "Email sent successfully!";
+            }
+            catch (Exception ex)
+            {
+                Label4.Text = "Error: " + ex.Message;
+            }
+        }
+    }
+    }
+
+
+23 23. Demonstrate the procedure to validate an email address and phone number in ASP.NET page
+ 
+using System;
+using System.Text.RegularExpressions;
+using System.Web.UI;
+
+namespace Validator
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                lblMessage.Text = ""; // Clear message on first load
+            }
+        }
+
+        protected void btnValidate_Click(object sender, EventArgs e)
+        {
+            string email = txtEmail.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+
+            bool isEmailValid = Regex.IsMatch(email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+            bool isPhoneValid = Regex.IsMatch(phone, @"^\d{10}$");
+
+            if (isEmailValid && isPhoneValid)
+            {
+                lblMessage.ForeColor = System.Drawing.Color.Green;
+                lblMessage.Text = "Email and Phone Number are valid!";
+            }
+            else
+            {
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                if (!isEmailValid && !isPhoneValid)
+                    lblMessage.Text = "Both Email and Phone Number are invalid!";
+                else if (!isEmailValid)
+                    lblMessage.Text = "Invalid Email Address!";
+                else
+                    lblMessage.Text = "Invalid Phone Number!";
+            }
+        }
+    }
+}
+
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ValidateContact.aspx.cs" Inherits="Validator.WebForm1" %>
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Email & Phone Validation</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="width: 400px; margin: 50px auto;">
+            <h2>Validate Email and Phone</h2>
+
+            <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label><br />
+            <asp:TextBox ID="txtEmail" runat="server" Width="300px"></asp:TextBox><br /><br />
+
+            <asp:Label ID="lblPhone" runat="server" Text="Phone Number:"></asp:Label><br />
+            <asp:TextBox ID="txtPhone" runat="server" Width="300px"></asp:TextBox><br /><br />
+
+            <asp:Button ID="btnValidate" runat="server" Text="Validate" OnClick="btnValidate_Click" /><br /><br />
+
+            <asp:Label ID="lblMessage" runat="server"></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+
+
+
+

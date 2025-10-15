@@ -1,0 +1,75 @@
+Task 5:Working with Assemblies 
+
+1.Demonstrate a console application by creating a Private Assembly and use it in different applications.
+
+
+2.Demonstrate how to Create a Public assembly and store it in GAC and use it in all applications.
+
+
+1.Demonstrate a console application by creating a Private Assembly and use it in different applications.
+
+Step 1: Create a Private Assembly (Class Library)
+1.Open Visual Studio and create a new Class Library project.
+2.Name it MyMathLibrary.
+3.Replace the default Class1.cs with the following code and build the solution
+
+
+namespace MyMathLibrary
+{
+    public class MathOperations
+    {
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+
+        public int Subtract(int a, int b)
+        {
+            return a - b;
+        }
+
+        public int Multiply(int a, int b)
+        {
+            return a * b;
+        }
+
+        public double Divide(int a, int b)
+        {
+            return (double)a / b;
+        }
+    }
+}
+
+
+Step 2: 
+Create a Console Application to Use the Private Assembly
+1.Create a new Console Application project named MathApp.
+2.go to solution explorer and Right-click on References in the MathApp project and select Add Reference.
+3.Browse to the location of MyMathLibrary.dll and add it as a reference.
+4.In the Program.cs file, write the following code:
+
+using System;
+using MyMathLibrary; // Reference the private assembly
+
+namespace MathApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+MathOperations mathOps = new MathOperations();
+
+            int sum = mathOps.Add(10, 20);
+            int difference = mathOps.Subtract(30, 15);
+            int product = mathOps.Multiply(5, 6);
+            double quotient = mathOps.Divide(40, 8);
+
+Console.WriteLine("Sum: " + sum);
+Console.WriteLine("Difference: " + difference);
+Console.WriteLine("Product: " + product);
+Console.WriteLine("Quotient: " + quotient);
+
+Console.ReadLine(); // Wait for user input before closing the console
+        }
+    }
+}

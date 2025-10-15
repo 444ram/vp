@@ -1,0 +1,42 @@
+
+			TASK 6
+To Do Planner
+
+XYZ Inc. is a leading office automation service provider. They want to develop an application using which the users can plan and manage their ToDos. As a developer you need to develop a console based application to manage the list of tasks. You need to define the implementation for scheduling a task, postpone, prepone, set priority, task completion etc. You are provided with the class and respective members description and you are supposed to implement them accordingly.
+
+Namespace: Planning App
+
+Use List Generic Class to Implement this Application
+
+The class and its members descriptions provided below and you need to define them accordingly.
+1.Define a class by the name, Task and define the following private fields inside the Task class.
+2.TaskID as int
+3.TaskDescription as string
+4.TaskStartDate as Date Time
+5.TaskEndDate as Date Time
+6.TaskPriority as string
+7.CompletionStatus as string
+8.In the Task class define a parameterized constructor to initialize the private fields to assign the parameter values accordingly. Within the parameterized constructor ensure that a unique integer value is auto-generated and assigned to TaskID private field.
+9.Define a class by the name, To Do Planner with the following specifications.
+10.Define a generic list collection of type Task.
+11.Define the below methods accordingly.
+
+public bool AddTask(Task obj)
+
+This method is to add a task to the tasks generic collection of type Task. If the parameter obj is null, the method should return false, else the method should add the task details to tasks generic collection and return true.
+
+TaskPriority can be either high or low initially completion status can be pending
+
+public bool DeleteTask(int intTaskID)
+
+This method should delete a task based on the task ID provided. If the deletion successful return true else return false, If no task exists with the given task ID, return false.
+
+public bool Update TaskStatus(int intTaskID, string strStatus)
+
+This method should update a particular task's status. If the task found and able to update the CompletionStatus, return true. If the task is not found or unable to update the CompetionStatus return false. Updated CompletionStatus can be either "Inprogress" or "Completed"
+
+public Task GetTasks()
+
+This method should return the list of tasks as an Array.
+Use List Generic Concept to implementthisprogram
+List<Task> task=new List<Task>

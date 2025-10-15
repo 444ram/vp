@@ -1,0 +1,62 @@
+
+using System;
+
+namespace InterfaceInheritanceDemo
+{
+
+    // Base interface
+    interface IEmployee
+    {
+        void empdisplaydetails();
+    }
+
+
+    // Derived interface
+    interface IManager : IEmployee
+    {
+        void Managerdetails();
+    }
+
+
+    // Concrete class implementing IManager explicitly
+    class  Departmetdetails : IManager
+    {
+        // Explicit implementation of IEmployee.Work
+      
+  void IEmployee.empdisplaydetails()
+        {
+        Console.WriteLine("employee detailes");
+        }
+
+        // Explicit implementation of IManager.Manage
+        void IManager.Managerdetails()
+        {
+            Console.WriteLine("Manageris working sales department");
+        }
+
+        
+      
+    }
+
+    class Program
+    {
+       public  static void Main(string[] args)
+        {
+            Departmetdetails d = new Departmetdetails();
+
+           
+            // d.empdisplaydetails();   // ❌ Compile-time error
+            // d.Managerdetails(); // ❌ Compile-time error
+
+          
+          
+           // Accessing explicitly implemented methods via interfaces
+          
+            IEmployee emp = d;
+            emp.empdisplaydetails(); // ✅ Access via IEmployee
+
+            IManager mg =d;
+            mg.Managerdetails(); // ✅ Access via IManager
+        }
+    }
+}

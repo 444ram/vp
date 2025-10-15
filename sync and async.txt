@@ -1,0 +1,63 @@
+
+
+synchronous and asynchronous method invocation.
+
+
+
+in C#, synchronous operations execute one after another, blocking the main thread until each operation completes. 
+
+
+Asynchronous operations, on the other hand, allow the program to continue executing other tasks while waiting for an operation to finish.
+
+
+
+
+
+using System;
+using System.Threading;
+
+class Program
+{
+    // Define a delegate
+    public delegate int MathOperation(int x, int y);
+
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Main started");
+
+        // Create delegate instance
+        MathOperation add = Add;
+
+        // Synchronous invocation
+        Console.WriteLine("\nSynchronous call:");
+        int syncResult = add(5, 3);
+        Console.WriteLine($"Synchronous result: {syncResult}");
+
+    
+        // Asynchronous invocation using BeginInvoke
+        Console.WriteLine("\nAsynchronous call using BeginInvoke:");
+
+        IAsyncResult asyncResult = add.BeginInvoke(10, 20, null, null);
+
+        // Do something else while the method runs asynchronously
+        Console.WriteLine("Main thread is free to do other work...");
+
+
+        // Wait for result
+        int asyncResultValue = add.EndInvoke(asyncResult);
+        Console.WriteLine($"Asynchronous result: {asyncResultValue}");
+
+        Console.WriteLine("\nMain ended");
+    }
+
+    // A method that matches the delegate signature
+    static int Add(int a, int b)
+    {
+        Console.WriteLine("Add method started...");
+        Thread.Sleep(3000); // Simulate long-running task
+        Console.WriteLine("Add method completed.");
+        return a + b;
+    }
+}
+
+

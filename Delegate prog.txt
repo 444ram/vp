@@ -1,0 +1,42 @@
+A delegate in C# is similar to a function pointer in C or C++.
+
+ delegate holds the address of a method which can be called using that delegate.
+They are derived from System.Delegate class.
+
+C# programmers often need to pass a method as a parameter of other methods when dealing with events. 
+
+Singlecast delegate: Singlecast delegate points to a single method at a time. The delegate is assigned to a single method at a time. 
+Multicast Delegate: When a delegate is wrapped with more than one method, that is known as a multicast delegate.
+
+
+Eg:
+
+
+
+
+using System;
+
+namespace DelegateAdditionExample
+{
+    // 1. Declare a delegate that takes two integers and returns an integer
+    public delegate int MathOperation(int a, int b);
+
+    class Program
+    {
+        // 2. Define a method that matches the delegate signature
+        static int Add(int x, int y)
+        {
+            return x + y;
+        }
+
+        public static void Main(string[] args)
+        {
+    // 3. Create an instance of the delegate and point it to the Add method
+            
+	MathOperation ope = Add;
+
+            // 4. Call the delegate
+            
+            int result = ope(10, 5);
+ Console.WriteLine("The result of addition is: " + result); 
+        }}}
